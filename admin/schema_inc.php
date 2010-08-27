@@ -1,4 +1,22 @@
 <?php
+
+global $gBitSystem;
+
+$gBitSystem->registerPackageInfo( RECOMMENDS_PKG_NAME, array(
+	'description' => "A recommendation package that allows users to recommend any content using a basic interface.",
+	'license' => '<a href="http://www.gnu.org/licenses/licenses.html#LGPL">LGPL</a>',
+) );
+
+// Requirements
+$gBitSystem->registerRequirements( RECOMMENDS_PKG_NAME, array(
+    'liberty' => array( 'min' => '2.1.4' ),
+));
+
+
+// Install process
+global $gBitInstaller;
+if( is_object( $gBitInstaller ) ){
+
 $tables = array(
 	'recommends_sum' => "
 		content_id I4 PRIMARY,
@@ -26,11 +44,6 @@ foreach( array_keys( $tables ) AS $tableName ) {
 	$gBitInstaller->registerSchemaTable( RECOMMENDS_PKG_NAME, $tableName, $tables[$tableName] );
 }
 
-$gBitInstaller->registerPackageInfo( RECOMMENDS_PKG_NAME, array(
-	'description' => "A recommendation package that allows users to recommend any content using a basic interface.",
-	'license' => '<a href="http://www.gnu.org/licenses/licenses.html#LGPL">LGPL</a>',
-) );
-
 // ### Default UserPermissions
 $gBitInstaller->registerUserPermissions( RECOMMENDS_PKG_NAME, array(
 // Not yet supported in code and never supported for annonymous.
@@ -51,7 +64,4 @@ $gBitInstaller->registerPreferences( RECOMMENDS_PKG_NAME, array(
 	array( RECOMMENDS_PKG_NAME, "recommends_icon_width", "48" ),
 ) );
 
-// Requirements
-$gBitInstaller->registerRequirements( RECOMMENDS_PKG_NAME, array(
-    'liberty' => array( 'min' => '2.1.4' ),
-));
+}
