@@ -1,0 +1,43 @@
+---
+recommends: 
+  homeable: false
+  required: false
+  tables: 
+    recommends_sum: |
+      
+      content_id I4 PRIMARY,
+      recommending I2 NOTNULL,
+      qualified_time I8 default 0,
+      votes I4 NOTNULL
+      CONSTRAINT '
+      , CONSTRAINT `recommends_sum_content_ref` FOREIGN KEY (`content_id`) REFERENCES `liberty_content`( `content_id` )'
+      
+    recommends: |
+      
+      content_id I4 NOTNULL,
+      user_id I4 NOTNULL,
+      recommending I2 NOTNULL,
+      changes I4 NOTNULL DEFAULT 0,
+      recommending_time I8 NOTNULL DEFAULT 0
+      CONSTRAINT '
+      , CONSTRAINT `recommends_content_ref` FOREIGN KEY (`content_id`) REFERENCES `liberty_content`( `content_id` )
+      , CONSTRAINT `recommends_user_ref` FOREIGN KEY (`user_id`) REFERENCES `users_users`( `user_id` )'
+      
+  preferences: 
+    recommends_in_body: y
+    recommends_timeout_days: 15
+    recommends_max_changes: 1
+    recommends_change_timeout: 1
+    recommends_recommend_period: 48
+    recommends_minimum_recommends: 10
+    recommends_icon_width: 48
+  requirements: 
+    liberty: 
+      min: 2.1.4
+  version: 0.0.0
+  description: >
+    A recommendation package that allows
+    users to recommend any content using a
+    basic interface.
+  license: 
+    html: '<a href="http://www.gnu.org/licenses/licenses.html#LGPL">LGPL</a>'
